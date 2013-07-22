@@ -1,9 +1,9 @@
+gilt.GiltProject.jarSettings
+
 /* basic project info */
 name := "jerkson"
 
-organization := "org.cphylabs"
-
-version := "0.6.4-SNAPSHOT"
+organization := "com.gilt"
 
 licenses := Seq(
   ("The MIT License", url("http://codahale.com/mit.txt"))
@@ -84,11 +84,7 @@ offline := false
 publishMavenStyle := true
 
 publishTo <<= version { (v: String) =>
-  val nexus = "https://oss.sonatype.org/"
-  if (v.trim.endsWith("SNAPSHOT")) Some(
-    "snapshots" at nexus + "content/repositories/snapshots"
-  )
-  else Some("releases" at nexus + "service/local/staging/deploy/maven2")
+  Some("thirdparty-pom" at "https://nexus.gilt.com/nexus/content/repositories/thirdparty/")
 }
 
 publishArtifact in Test := false
