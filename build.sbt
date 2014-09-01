@@ -65,10 +65,6 @@ libraryDependencies <+= scalaVersion {
   "org.scala-lang" % "scala-reflect" % _
 }
 
-resolvers ++= Seq(
-  "Local Maven" at Path.userHome.asFile.toURI.toURL + ".m2/repository"
-)
-
 
 /* testing */
 parallelExecution in Test := false
@@ -83,8 +79,12 @@ offline := false
 /* publishing */
 publishMavenStyle := true
 
-publishTo <<= version { (v: String) =>
-  Some("thirdparty-pom" at "https://nexus.gilt.com/nexus/content/repositories/thirdparty/")
+publishTo := {
+  val nexus = "https://oss.sonatype.org/"
+  if (isSnapshot.value)
+    Some("snapshots" at nexus + "content/repositories/snapshots")
+  else
+    Some("releases"  at nexus + "service/local/staging/deploy/maven2")
 }
 
 publishArtifact in Test := false
