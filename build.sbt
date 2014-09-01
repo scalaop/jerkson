@@ -1,5 +1,3 @@
-gilt.GiltProject.jarSettings
-
 /* basic project info */
 name := "jerkson"
 
@@ -20,7 +18,9 @@ scmInfo := Some(
 )
 
 /* scala versions and options */
-scalaVersion := "2.10.3"
+scalaVersion := "2.10.4"
+
+crossScalaVersions := Seq("2.10.4", "2.11.2")
 
 // These options will be used for *all* versions.
 scalacOptions ++= Seq(
@@ -57,8 +57,8 @@ javacOptions ++= Seq("-Xlint:unchecked", "-Xlint:deprecation")
 
 /* dependencies */
 libraryDependencies ++= Seq(
-  "com.fasterxml.jackson.core" % "jackson-core" % "2.3.1",
-  "com.fasterxml.jackson.core" % "jackson-databind" % "2.3.1"
+  "com.fasterxml.jackson.core" % "jackson-core" % "2.4.1",
+  "com.fasterxml.jackson.core" % "jackson-databind" % "2.4.1"
 )
 
 libraryDependencies <+= scalaVersion {
