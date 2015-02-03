@@ -10,7 +10,7 @@ class EitherDeserializer(config: DeserializationConfig,
     val node = jp.readValueAsTree[JsonNode]
 
     try {
-    val tp = new TreeTraversingParser(node, jp.getCodec)
+      val tp = new TreeTraversingParser(node, jp.getCodec)
       Left(tp.getCodec.readValue[Object](tp, javaType.containedType(0)))
     } catch {
       case _: Throwable => {
