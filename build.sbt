@@ -18,9 +18,9 @@ scmInfo := Some(
 )
 
 /* scala versions and options */
-scalaVersion := "2.10.4"
+scalaVersion := "2.10.5"
 
-crossScalaVersions := Seq("2.10.4", "2.11.2")
+crossScalaVersions := Seq("2.10.5", "2.11.7")
 
 // These options will be used for *all* versions.
 scalacOptions ++= Seq(
@@ -57,8 +57,8 @@ javacOptions ++= Seq("-Xlint:unchecked", "-Xlint:deprecation")
 
 /* dependencies */
 libraryDependencies ++= Seq(
-  "com.fasterxml.jackson.core" % "jackson-core" % "2.4.1",
-  "com.fasterxml.jackson.core" % "jackson-databind" % "2.4.1"
+  "com.fasterxml.jackson.core" % "jackson-core" % "2.6.1",
+  "com.fasterxml.jackson.core" % "jackson-databind" % "2.6.1"
 )
 
 libraryDependencies <+= scalaVersion {
