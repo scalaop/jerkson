@@ -1,12 +1,11 @@
-# Jerkson for Scala 2.10 #
+# Jerkson #
 
-[Jerkson](https://github.com/codahale/jerkson) has only been published for
-Scala versions as high as 2.9.1.
+This fork of Jerkson contains patches not found in the original, abandoned, copy.
 
 ## Differences from upstream Jerkson ##
 
 - sbt instead of Maven.
-- Tests have been deleted, since sbt cannot run
+- Tests have been converted to scalatest
   [simplespec](https://github.com/SimpleFinance/simplespec) tests.
 - Minor tweaks to get compilation in 2.10.
 - [Streaming iteration patch](https://github.com/ymasory/jerkson/pull/1), if you
@@ -20,15 +19,15 @@ Scala versions as high as 2.9.1.
 - From sbt:
 
   ```scala
-  libraryDependencies += "com.cloudphysics %% "jerkson" % "0.6.1"
+  libraryDependencies += "com.gilt %% "jerkson" % "0.6.8-2"
   ```
 - From Maven:
 
   ```xml
   <dependency>
-    <groupId>com.cloudphysics</groupId>
+    <groupId>com.gilt</groupId>
     <artifactId>jerkson_2.10</artifactId>
-    <version>0.6.1</version>
+    <version>0.6.8-2</version>
   </dependency>
   ```
 
@@ -37,6 +36,7 @@ Scala versions as high as 2.9.1.
 ```sh
 $ cd jerkson
 $ sbt compile
+$ sbt test
 ```
 
 ## Future plans ##
