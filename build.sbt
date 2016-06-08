@@ -68,7 +68,7 @@ libraryDependencies <+= scalaVersion {
 
 
 /* testing */
-parallelExecution in Test := false
+parallelExecution in Test := true
 
 /* sbt behavior */
 logLevel in compile := Level.Warn
