@@ -2,176 +2,166 @@ package com.codahale.jerkson.tests
 
 import scala.collection._
 import com.codahale.jerkson.Json._
-import com.codahale.simplespec.Spec
-import org.junit.{Ignore, Test}
+import org.scalatest.FlatSpec
+import org.scalatest.Matchers
 
-class CollectionSupportSpec extends Spec {
-  class `A collection.BitSet` {
-    @Test def `generates a JSON array of ints` = {
-      generate(BitSet(1)).must(be("[1]"))
-    }
+class CollectionSupportSpec extends FlatSpec with Matchers {
 
-    @Test def `is parsable from a JSON array of ints` = {
-      parse[BitSet]("[1,2,3]").must(be(BitSet(1, 2, 3)))
-    }
+  behavior of "A collection.BitSet"
+  it should "generates a JSON array of ints" in {
+    generate(BitSet(1)) shouldBe "[1]"
   }
 
-  class `A collection.Iterator[Int]` {
-    @Test def `generates a JSON array of ints` = {
-      generate(Seq(1, 2, 3).iterator).must(be("[1,2,3]"))
-    }
-
-    @Test def `is parsable from a JSON array of ints` = {
-      parse[Iterator[Int]]("[1,2,3]").toList.must(be(List(1, 2, 3)))
-    }
-
-    @Test def `is parsable from an empty JSON array` = {
-      parse[Iterator[Int]]("[]").toList.must(be(List.empty[Int]))
-    }
+  it should "is parsable from a JSON array of ints" in {
+    parse[BitSet]("[1,2,3]") shouldBe BitSet(1, 2, 3)
   }
 
-  class `A collection.Traversable[Int]` {
-    @Test def `generates a JSON array of ints` = {
-      generate(Seq(1, 2, 3).toTraversable).must(be("[1,2,3]"))
-    }
-
-    @Test def `is parsable from a JSON array of ints` = {
-      parse[Traversable[Int]]("[1,2,3]").toList.must(be(List(1, 2, 3)))
-    }
-
-    @Test def `is parsable from an empty JSON array` = {
-      parse[Traversable[Int]]("[]").toList.must(be(List.empty[Int]))
-    }
+  behavior of "A collection.Iterator[Int]"
+  it should "generates a JSON array of ints" in {
+    generate(Seq(1, 2, 3).iterator) shouldBe "[1,2,3]"
   }
 
-  class `A collection.BufferedIterator[Int]` {
-    @Test def `generates a JSON array of ints` = {
-      generate(Seq(1, 2, 3).iterator.buffered).must(be("[1,2,3]"))
-    }
-
-    @Test def `is parsable from a JSON array of ints` = {
-      parse[BufferedIterator[Int]]("[1,2,3]").toList.must(be(List(1, 2, 3)))
-    }
-
-    @Test def `is parsable from an empty JSON array` = {
-      parse[BufferedIterator[Int]]("[]").toList.must(be(List.empty[Int]))
-    }
+  it should "is parsable from a JSON array of ints" in {
+    parse[Iterator[Int]]("[1,2,3]").toList shouldBe List(1, 2, 3)
   }
 
-  class `A collection.Iterable[Int]` {
-    @Test def `generates a JSON array of ints` = {
-      generate(Seq(1, 2, 3).toIterable).must(be("[1,2,3]"))
-    }
-
-    @Test def `is parsable from a JSON array of ints` = {
-      parse[Iterable[Int]]("[1,2,3]").toList.must(be(List(1, 2, 3)))
-    }
-
-    @Test def `is parsable from an empty JSON array` = {
-      parse[Iterable[Int]]("[]").toList.must(be(List.empty[Int]))
-    }
+  it should "is parsable from an empty JSON array" in {
+    parse[Iterator[Int]]("[]").toList shouldBe List.empty[Int]
   }
 
-  class `A collection.Set[Int]` {
-    @Test def `generates a JSON array of ints` = {
-      generate(Set(1, 2, 3)).must(be("[1,2,3]"))
-    }
-
-    @Test def `is parsable from a JSON array of ints` = {
-      parse[Set[Int]]("[1,2,3]").must(be(Set(1, 2, 3)))
-    }
-
-    @Test def `is parsable from an empty JSON array` = {
-      parse[Set[Int]]("[]").must(be(Set.empty[Int]))
-    }
+  behavior of "A collection.Traversable[Int]"
+  it should "generates a JSON array of ints" in {
+    generate(Seq(1, 2, 3).toTraversable) shouldBe "[1,2,3]"
   }
 
-  class `A collection.Map[String, Int]` {
-    @Test def `generates a JSON object with int field values` = {
-      generate(Map("one" -> 1, "two" -> 2)).must(be("""{"one":1,"two":2}"""))
-    }
-
-    @Test def `is parsable from a JSON object with int field values` = {
-      parse[Map[String, Int]]("""{"one":1,"two":2}""").must(be(Map("one" -> 1, "two" -> 2)))
-    }
-
-    @Test def `is parsable from an empty JSON object` = {
-      parse[Map[String, Int]]("{}").must(be(Map.empty[String, Int]))
-    }
+  it should "is parsable from a JSON array of ints" in {
+    parse[Traversable[Int]]("[1,2,3]").toList shouldBe List(1, 2, 3)
   }
 
-  class `A collection.IndexedSeq[Int]` {
-    @Test def `generates a JSON array of ints` = {
-      generate(IndexedSeq(1, 2, 3)).must(be("[1,2,3]"))
-    }
-
-    @Test def `is parsable from a JSON array of ints` = {
-      parse[IndexedSeq[Int]]("[1,2,3]").must(be(IndexedSeq(1, 2, 3)))
-    }
-
-    @Test def `is parsable from an empty JSON array` = {
-      parse[IndexedSeq[Int]]("[]").must(be(IndexedSeq.empty))
-    }
+  it should "is parsable from an empty JSON array" in {
+    parse[Traversable[Int]]("[]").toList shouldBe List.empty[Int]
   }
 
-  class `A collection.Seq[Int]` {
-    @Test def `generates a JSON array of ints` = {
-      generate(Seq(1, 2, 3)).must(be("[1,2,3]"))
-    }
-
-    @Test def `is parsable from a JSON array of ints` = {
-      parse[Seq[Int]]("[1,2,3]").must(be(Seq(1, 2, 3)))
-    }
-
-    @Test def `is parsable from an empty JSON array` = {
-      parse[Seq[Int]]("[]").must(be(Seq.empty[Int]))
-    }
+  behavior of "A collection.BufferedIterator[Int]"
+  it should "generates a JSON array of ints" in {
+    generate(Seq(1, 2, 3).iterator.buffered) shouldBe "[1,2,3]"
   }
 
-  class `A collection.SortedMap[String, Int]` {
-    @Test def `generates a JSON object with int field values` = {
-      generate(SortedMap("one" -> 1, "two" -> 2)).must(be("""{"one":1,"two":2}"""))
-    }
-
-    // TODO: 6/1/11 <coda> -- figure out how to deserialize SortedMap instances
-
-    /**
-     * I think all this would take is a mapping from Class[_] to Ordering, which
-     * would need to have hard-coded the various primitive types, and then add
-     * support for Ordered and Comparable classes. Once we have the Ordering,
-     * we can pass it in manually to a builder.
-     */
-    
-    @Ignore @Test def `is parsable from a JSON object with int field values` = {
-      parse[SortedMap[String, Int]]("""{"one":1,"two":2}""").must(be(SortedMap("one" -> 1, "two" -> 2)))
-    }
-
-    @Ignore @Test def `is parsable from an empty JSON object` = {
-      parse[SortedMap[String, Int]]("{}").must(be(SortedMap.empty[String, Int]))
-    }
+  it should "is parsable from a JSON array of ints" in {
+    parse[BufferedIterator[Int]]("[1,2,3]").toList shouldBe List(1, 2, 3)
   }
 
-  class `A collection.SortedSet[Int]` {
-    @Test def `generates a JSON array of ints` = {
-      generate(SortedSet(1, 2, 3)).must(be("[1,2,3]"))
-    }
+  it should "is parsable from an empty JSON array" in {
+    parse[BufferedIterator[Int]]("[]").toList shouldBe List.empty[Int]
+  }
 
-    // TODO: 6/1/11 <coda> -- figure out how to deserialize SortedMap instances
+  behavior of "A collection.Iterable[Int]"
+  it should "generates a JSON array of ints" in {
+    generate(Seq(1, 2, 3).toIterable) shouldBe "[1,2,3]"
+  }
 
-    /**
-     * I think all this would take is a mapping from Class[_] to Ordering, which
-     * would need to have hard-coded the various primitive types, and then add
-     * support for Ordered and Comparable classes. Once we have the Ordering,
-     * we can pass it in manually to a builder.
-     */
+  it should "is parsable from a JSON array of ints" in {
+    parse[Iterable[Int]]("[1,2,3]").toList shouldBe List(1, 2, 3)
+  }
 
-    @Ignore @Test def `is parsable from a JSON array of ints` = {
-      parse[SortedSet[Int]]("[1,2,3]").must(be(SortedSet(1, 2, 3)))
+  it should "is parsable from an empty JSON array" in {
+    parse[Iterable[Int]]("[]").toList shouldBe List.empty[Int]
+  }
 
-    }
+  behavior of "A collection.Set[Int]"
+  it should "generates a JSON array of ints" in {
+    generate(Set(1, 2, 3)) shouldBe "[1,2,3]"
+  }
 
-    @Ignore @Test def `is parsable from an empty JSON array` = {
-      parse[SortedSet[Int]]("[]").must(be(SortedSet.empty[Int]))
-    }
+  it should "is parsable from a JSON array of ints" in {
+    parse[Set[Int]]("[1,2,3]") shouldBe Set(1, 2, 3)
+  }
+
+  it should "is parsable from an empty JSON array" in {
+    parse[Set[Int]]("[]") shouldBe Set.empty[Int]
+  }
+
+  behavior of "A collection.Map[String, Int]"
+  it should "generates a JSON object with int field values" in {
+    generate(Map("one" -> 1, "two" -> 2)) shouldBe """{"one":1,"two":2}"""
+  }
+
+  it should "is parsable from a JSON object with int field values" in {
+    parse[Map[String, Int]]("""{"one":1,"two":2}""") shouldBe Map("one" -> 1, "two" -> 2)
+  }
+
+  it should "is parsable from an empty JSON object" in {
+    parse[Map[String, Int]]("{}") shouldBe Map.empty[String, Int]
+  }
+
+  behavior of "A collection.IndexedSeq[Int]"
+  it should "generates a JSON array of ints" in {
+    generate(IndexedSeq(1, 2, 3)) shouldBe "[1,2,3]"
+  }
+
+  it should "is parsable from a JSON array of ints" in {
+    parse[IndexedSeq[Int]]("[1,2,3]") shouldBe IndexedSeq(1, 2, 3)
+  }
+
+  it should "is parsable from an empty JSON array" in {
+    parse[IndexedSeq[Int]]("[]") shouldBe IndexedSeq.empty
+  }
+
+  behavior of "A collection.Seq[Int]"
+  it should "generates a JSON array of ints" in {
+    generate(Seq(1, 2, 3)) shouldBe "[1,2,3]"
+  }
+
+  it should "is parsable from a JSON array of ints" in {
+    parse[Seq[Int]]("[1,2,3]") shouldBe Seq(1, 2, 3)
+  }
+
+  it should "is parsable from an empty JSON array" in {
+    parse[Seq[Int]]("[]") shouldBe Seq.empty[Int]
+  }
+
+  behavior of "A collection.SortedMap[String, Int]"
+  it should "generates a JSON object with int field values" in {
+    generate(SortedMap("one" -> 1, "two" -> 2)) shouldBe """{"one":1,"two":2}"""
+  }
+
+  // TODO: 6/1/11 <coda> -- figure out how to deserialize SortedMap instances
+
+  /**
+    * I think all this would take is a mapping from Class[_] to Ordering, which
+    * would need to have hard-coded the various primitive types, and then add
+    * support for Ordered and Comparable classes. Once we have the Ordering,
+    * we can pass it in manually to a builder.
+    */
+
+  ignore should "is parsable from a JSON object with int field values" in {
+    parse[SortedMap[String, Int]]("""{"one":1,"two":2}""") shouldBe SortedMap("one" -> 1, "two" -> 2)
+  }
+
+  ignore should "is parsable from an empty JSON object" in {
+    parse[SortedMap[String, Int]]("{}") shouldBe SortedMap.empty[String, Int]
+  }
+
+  behavior of "A collection.SortedSet[Int]"
+  it should "generates a JSON array of ints" in {
+    generate(SortedSet(1, 2, 3)) shouldBe "[1,2,3]"
+  }
+
+  // TODO: 6/1/11 <coda> -- figure out how to deserialize SortedMap instances
+
+  /**
+    * I think all this would take is a mapping from Class[_] to Ordering, which
+    * would need to have hard-coded the various primitive types, and then add
+    * support for Ordered and Comparable classes. Once we have the Ordering,
+    * we can pass it in manually to a builder.
+    */
+
+  ignore should "is parsable from a JSON array of ints" in {
+    parse[SortedSet[Int]]("[1,2,3]") shouldBe SortedSet(1, 2, 3)
+
+  }
+
+  ignore should "is parsable from an empty JSON array" in {
+    parse[SortedSet[Int]]("[]") shouldBe SortedSet.empty[Int]
   }
 }

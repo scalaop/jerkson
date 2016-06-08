@@ -2,53 +2,50 @@ package com.codahale.jerkson.tests
 
 import com.codahale.jerkson.Json._
 import com.codahale.jerkson.AST._
-import com.codahale.simplespec.Spec
-import org.junit.Test
+import org.scalatest.FlatSpec
+import org.scalatest.Matchers
 
-class JValueSpec extends Spec {
-  class `Selecting single nodes` {
-    @Test def `returns None with primitives` = {
-      (parse[JValue]("8") \ "blah").must(be(JNull))
-    }
-    
-    @Test def `returns None on nonexistent fields` = {
-      (parse[JValue]("{\"one\": \"1\"}") \ "two").must(be(JNull))
-    }
-    
-    @Test def `returns a JValue with an existing field` = {
-      (parse[JValue]("{\"one\": \"1\"}") \ "one").must(be(JString("1")))
-    }
+class JValueSpec extends FlatSpec with Matchers {
+  behavior of "Selecting single nodes"
+  it should "returns None with primitives" in {
+    (parse[JValue]("8") \ "blah") shouldBe JNull
   }
-  
-  class `Selecting array members` {
-    @Test def `returns None with primitives` = {
-      (parse[JValue]("\"derp\"").apply(0)).must(be(JNull))
-    }
-    
-    @Test def `returns None on out of bounds` = {
-      (parse[JValue]("[0, 1, 2, 3]").apply(4)).must(be(JNull))
-    }
-    
-    @Test def `returns a JValue` = {
-      (parse[JValue]("[0, 1, 2, 3]").apply(2)).must(be(JInt(2)))
-    }
-  }
-  
-  class `Deep selecting` {
-    @Test def `returns Nil with primitives` = {
-      (parse[JValue]("0.234") \\ "herp").must(be(empty))
-    }
 
-    @Test def `returns Nil on nothing found` = {
-      (parse[JValue]("{\"one\": {\"two\" : \"three\"}}") \\ "four").must(be(empty))
-    }
-    
-    @Test def `returns single leaf nodes` = {
-      (parse[JValue]("{\"one\": {\"two\" : \"three\"}}") \\ "two").must(be(Seq(JString("three"))))
-    }
-    
-    @Test def `should return multiple leaf nodes` = {
-      (parse[JValue]("{\"one\": {\"two\" : \"three\"}, \"four\": {\"two\" : \"five\"}}") \\ "two").must(be(Seq(JString("three"),JString("five"))))
-    }
+  it should "returns None on nonexistent fields" in {
+    (parse[JValue]("{\"one\": \"1\"}") \ "two") shouldBe JNull
+  }
+
+  it should "returns a JValue with an existing field" in {
+    (parse[JValue]("{\"one\": \"1\"}") \ "one") shouldBe JString("1")
+  }
+
+  behavior of "Selecting array members"
+  it should "returns None with primitives" in {
+    (parse[JValue]("\"derp\"").apply(0)) shouldBe JNull
+  }
+
+  it should "returns None on out of bounds" in {
+    (parse[JValue]("[0, 1, 2, 3]").apply(4)) shouldBe JNull
+  }
+
+  it should "returns a JValue" in {
+    (parse[JValue]("[0, 1, 2, 3]").apply(2)) shouldBe JInt(2)
+  }
+
+  behavior of "Deep selecting"
+  it should "returns Nil with primitives" in {
+    (parse[JValue]("0.234") \\ "herp") shouldBe empty
+  }
+
+  it should "returns Nil on nothing found" in {
+    (parse[JValue]("{\"one\": {\"two\" : \"three\"}}") \\ "four") shouldBe empty
+  }
+
+  it should "returns single leaf nodes" in {
+    (parse[JValue]("{\"one\": {\"two\" : \"three\"}}") \\ "two") shouldBe Seq(JString("three"))
+  }
+
+  it should "should return multiple leaf nodes" in {
+    (parse[JValue]("{\"one\": {\"two\" : \"three\"}, \"four\": {\"two\" : \"five\"}}") \\ "two") shouldBe Seq(JString("three"),JString("five"))
   }
 }
