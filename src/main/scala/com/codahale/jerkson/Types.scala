@@ -13,7 +13,7 @@ private[jerkson] object Types {
 
   private def constructType(factory: TypeFactory, manifest: Manifest[_]): JavaType = {
     if (manifest.erasure.isArray) {
-      ArrayType.construct(factory.constructType(manifest.erasure.getComponentType), null, null)
+      ArrayType.construct(factory.constructType(manifest.erasure.getComponentType), null)
     } else if (manifest.typeArguments.size > 0) {
       factory.constructParametricType(
         manifest.erasure,

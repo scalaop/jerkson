@@ -57,8 +57,8 @@ javacOptions ++= Seq("-Xlint:unchecked", "-Xlint:deprecation")
 
 /* dependencies */
 libraryDependencies ++= Seq(
-  "com.fasterxml.jackson.core" % "jackson-core" % "2.6.1",
-  "com.fasterxml.jackson.core" % "jackson-databind" % "2.6.1",
+  "com.fasterxml.jackson.core" % "jackson-core" % "2.7.4",
+  "com.fasterxml.jackson.core" % "jackson-databind" % "2.7.4",
   "org.scalatest" %% "scalatest" % "2.2.6" % "test"
 )
 
