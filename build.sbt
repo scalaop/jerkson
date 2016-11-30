@@ -18,9 +18,9 @@ scmInfo := Some(
 )
 
 /* scala versions and options */
-scalaVersion := "2.10.5"
+scalaVersion := "2.10.6"
 
-crossScalaVersions := Seq("2.10.5", "2.11.8")
+crossScalaVersions := Seq("2.10.6", "2.11.8")
 
 // These options will be used for *all* versions.
 scalacOptions ++= Seq(
