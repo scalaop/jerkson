@@ -1,7 +1,7 @@
 /* basic project info */
 name := "jerkson"
 
-organization := "com.gilt"
+organization := "org.scalaop"
 
 licenses := Seq(
   ("The MIT License", url("http://codahale.com/mit.txt"))
@@ -18,9 +18,9 @@ scmInfo := Some(
 )
 
 /* scala versions and options */
-scalaVersion := "2.10.5"
+scalaVersion := "2.12.8"
 
-crossScalaVersions := Seq("2.10.5", "2.11.8")
+crossScalaVersions := Seq("2.12.8", "2.11.12")
 
 // These options will be used for *all* versions.
 scalacOptions ++= Seq(
@@ -30,28 +30,7 @@ scalacOptions ++= Seq(
   "-optimise"
 )
 
-scalacOptions ++= Seq(
-  "-Yclosure-elim",
-  "-Yinline"
-)
-
-scalacOptions += "-target:jvm-1.6"
-
-// These language flags will be used only for 2.10.x.
-// Uncomment those you need, or if you hate SIP-18, all of them.
-scalacOptions <++= scalaVersion map { sv =>
-  if (sv startsWith "2.10") List(
-    // "-Xverify",
-    // "-Ywarn-all",
-    "-feature",
-    "-language:postfixOps",
-    "-language:reflectiveCalls",
-    "-language:implicitConversions",
-    "-language:higherKinds",
-    "-language:existentials"
-  )
-  else Nil
-}
+scalacOptions += "-target:jvm-1.8"
 
 javacOptions ++= Seq("-Xlint:unchecked", "-Xlint:deprecation")
 
@@ -59,7 +38,7 @@ javacOptions ++= Seq("-Xlint:unchecked", "-Xlint:deprecation")
 libraryDependencies ++= Seq(
   "com.fasterxml.jackson.core" % "jackson-core" % "2.7.4",
   "com.fasterxml.jackson.core" % "jackson-databind" % "2.7.4",
-  "org.scalatest" %% "scalatest" % "2.2.6" % "test"
+  "org.scalatest" %% "scalatest" % "3.0.8" % "test"
 )
 
 libraryDependencies <+= scalaVersion {
