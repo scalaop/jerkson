@@ -7,13 +7,13 @@ licenses := Seq(
   ("The MIT License", url("http://codahale.com/mit.txt"))
 )
 
-homepage := Some(url("https://github.com/gilt/jerkson"))
+homepage := Some(url("https://github.com/scalaop/jerkson"))
 
 scmInfo := Some(
   ScmInfo(
-    url("https://github.com/gilt/jerkson"),
-    "scm:git:https://github.com/gilt/jerkson.git",
-    Some("scm:git:git@github.com:gilt/jerkson.git")
+    url("https://github.com/scalaop/jerkson"),
+    "scm:git:https://github.com/scalaop/jerkson.git",
+    Some("scm:git:git@github.com:scalaop/jerkson.git")
   )
 )
 
@@ -24,13 +24,11 @@ crossScalaVersions := Seq("2.12.8", "2.11.12")
 
 // These options will be used for *all* versions.
 scalacOptions ++= Seq(
-  // "-deprecation",
   "-unchecked",
   "-encoding", "UTF-8",
   "-optimise"
 )
 
-scalacOptions += "-target:jvm-1.8"
 
 javacOptions ++= Seq("-Xlint:unchecked", "-Xlint:deprecation")
 
